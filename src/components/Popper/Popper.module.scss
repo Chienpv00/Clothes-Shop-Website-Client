@@ -1,0 +1,109 @@
+.wrapper {
+    width: 100%;
+    background-color: var(--darkwhite);
+    border-radius: var(--radius-sm);
+    box-shadow: 0px 2px 12px var(--box-shadow);
+    overflow: auto;
+    min-height: 50px;
+    max-height: min((100vh - 96px) - 60px, 334px);
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--primary);
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #fff;
+        border-radius: 4px;
+    }
+}
+
+.flexWrapper {
+    display: flex;
+    padding: 10px 0;
+    box-shadow: unset;
+    flex-wrap: wrap;
+    background-color: unset;
+    max-height: unset;
+    min-height: unset;
+    overflow: hidden;
+}
+
+//Flex Item
+.flex-item-wrapper {
+    padding: 15px 10px;
+    width: 100%;
+}
+
+@media screen and (min-width: 375px) {
+    @for $col from 1 to 12 {
+        .col-xxs-#{$col} {
+            width: calc($col/12 * 100%);
+        }
+    }
+}
+
+@media screen and (min-width: 486px) {
+    .flex-item-wrapper {
+        width: 50%;
+    }
+    @for $col from 1 to 12 {
+        .col-xs-#{$col} {
+            width: calc($col/12 * 100%);
+        }
+    }
+}
+
+@media screen and (min-width: 576px) {
+    @for $col from 1 to 12 {
+        .col-sm-#{$col} {
+            width: calc($col/12 * 100%);
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .flex-item-wrapper {
+        width: calc(1 / 3 * 100%);
+    }
+
+    @for $col from 1 to 12 {
+        .col-md-#{$col} {
+            width: calc($col/12 * 100%);
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .flex-item-wrapper {
+        width: 25%;
+    }
+
+    @for $col from 1 to 12 {
+        .col-lg-#{$col} {
+            width: calc($col/12 * 100%);
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .flex-item-wrapper {
+        width: 20%;
+    }
+
+    @for $col from 1 to 12 {
+        .col-xl-#{$col} {
+            width: calc($col/12 * 100%);
+        }
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    @for $col from 1 to 12 {
+        .col-xxl-#{$col} {
+            width: calc($col/12 * 100%);
+        }
+    }
+}

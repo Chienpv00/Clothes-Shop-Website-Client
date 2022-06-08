@@ -1,0 +1,25 @@
+.wrapper {
+    h2 {
+        text-align: center;
+    }
+}
+
+.container {
+    background-color: var(--lightpink);
+    border-radius: var(--radius-xxl);
+    margin-top: 20px;
+    padding: 20px 40px;
+
+    font-size: 1.9rem;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+}
+
+.image-container {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}

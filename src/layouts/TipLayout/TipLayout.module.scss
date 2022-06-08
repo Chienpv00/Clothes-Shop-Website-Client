@@ -1,0 +1,15 @@
+.wrapper {
+    width: 100%;
+    max-width: var(--default-layout-max-width);
+    padding: var(--default-layout-padding);
+    margin: auto;
+
+    .header-image {
+        margin-bottom: 10px;
+    }
+}
+
+.content {
+    background-color: var(--lightpink);
+    border-radius: var(--radius-xl);
+}

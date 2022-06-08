@@ -1,0 +1,16 @@
+.wrapper {
+    background-color: var(--secondary);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 0 var(--radius-xl) var(--radius-xl) var(--radius-xl);
+}
+
+.user-col-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.remove-btn {
+    background-color: #fd475d;
+}

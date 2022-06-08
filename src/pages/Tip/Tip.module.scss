@@ -1,0 +1,11 @@
+.wrapper {
+    color: #000;
+}
+
+.image {
+    min-width: 200px;
+    max-width: 500px;
+    margin: 20px auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}

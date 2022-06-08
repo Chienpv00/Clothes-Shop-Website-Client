@@ -1,0 +1,54 @@
+.wrapper {
+    background-color: var(--secondary);
+    opacity: 0;
+    animation: slideDown 0.3s ease-in-out forwards;
+    position: relative;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+
+    li {
+        cursor: pointer;
+        &:nth-child(1) {
+            color: #f68908;
+        }
+        &:nth-child(2) {
+            color: #0fb2f9;
+        }
+        &:nth-child(3) {
+            color: #059f55;
+        }
+
+        &:nth-child(1).active ~ .current-sub-nav {
+            background-color: #f68908;
+            left: 0;
+        }
+        &:nth-child(2).active ~ .current-sub-nav {
+            background-color: #0fb2f9;
+            left: 25%;
+        }
+        &:nth-child(3).active ~ .current-sub-nav {
+            background-color: #059f55;
+            left: 50%;
+        }
+    }
+
+    .current-sub-nav {
+        position: absolute;
+        top: 74px;
+        height: 3px;
+        width: 25%;
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        height: 0;
+    }
+    to {
+        opacity: 1;
+        height: 97px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}

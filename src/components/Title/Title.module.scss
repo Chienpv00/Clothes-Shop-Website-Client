@@ -1,0 +1,21 @@
+.wrapper {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.left-title {
+    text-transform: uppercase;
+    font-size: 2.5rem;
+}
+
+.right-title {
+    cursor: pointer;
+    font-size: 1.6rem;
+    &:hover {
+        font-style: italic;
+    }
+}

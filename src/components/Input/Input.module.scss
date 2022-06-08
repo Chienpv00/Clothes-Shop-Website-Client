@@ -1,0 +1,57 @@
+.wrapper {
+    border-radius: var(--radius-sm);
+    border: 0;
+    font-size: 1.6rem;
+    font-weight: 100;
+    outline: 0;
+    outline: none;
+}
+
+.primary {
+    border: 1px solid var(--primary);
+}
+
+//border
+.outline {
+    &:focus {
+        outline: 1px solid var(--primary);
+    }
+}
+
+//Shadow
+.outer {
+    box-shadow: 2px 2px 6px var(--box-shadow);
+}
+
+.inner {
+    background: none;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px #fff;
+}
+
+//with
+
+.sm-size {
+    padding: 10px;
+    width: 150px;
+}
+.md-size {
+    padding: 15px;
+    width: 220px;
+}
+
+.lg-size,
+.xl-size {
+    padding: 15px;
+    width: 300px;
+    border-radius: var(--radius-md);
+}
+
+.xl-size {
+    width: 100%;
+}
+
+//
+.textarea {
+    height: 150px;
+    width: 100%;
+}

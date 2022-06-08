@@ -1,0 +1,53 @@
+.wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+}
+
+.ratio1x1,
+.ratio3x4,
+.ratio4x3,
+.ratio16x9,
+.ratio9x16 {
+    height: unset;
+}
+.ratio1x1 {
+    padding-top: 100%;
+}
+.ratio4x6 {
+    padding-top: calc(6 / 4 * 100%);
+}
+
+.ratio6x4 {
+    padding-top: calc(2 / 3 * 100%);
+}
+.ratio3x4 {
+    padding-top: calc(4 / 3 * 100%);
+}
+
+.ratio4x3 {
+    padding-top: 75%;
+}
+
+.ratio16x9 {
+    padding-top: 56.25%;
+}
+
+.ratio9x16 {
+    padding-top: calc(16 / 9 * 100%);
+}
+
+.opacity {
+    opacity: 0.4;
+}

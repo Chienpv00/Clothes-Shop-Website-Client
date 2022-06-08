@@ -1,0 +1,30 @@
+.wrapper {
+    .img-home {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .img-bell {
+        top: 0;
+        right: 0;
+    }
+
+    .img-tree {
+        left: 20px;
+        bottom: 20px;
+    }
+
+    .img-christmas {
+        bottom: -40px;
+        left: 0;
+        right: 0;
+    }
+
+    hr {
+        width: 100%;
+        border: 0;
+        height: 1px;
+        background-color: var(--darkbrown);
+        margin: 20px 0;
+    }
+}

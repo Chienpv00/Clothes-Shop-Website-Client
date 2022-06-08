@@ -1,25 +1,97 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Fragment } from 'react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import { privateRoutes, protectedRoutes, publicRoutes } from '~/routes'
+import { DefaultLayout } from '~/layouts'
+import ScrollTopTop from '~/components/ScrollToTop'
+import ProtectedRoute from '~/context/ProtectedRoute'
+import PrivateRoute from '~/context/PrivateRoute'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <ScrollTopTop />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+                <Routes>
+                    {publicRoutes.map((route, index) => {
+                        const Page = route.component
+
+                        let Layout = DefaultLayout
+
+                        if (route.layout) {
+                            Layout = route.layout
+                        } else if (route.layout === null) {
+                            Layout = Fragment
+                        }
+
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                }
+                            />
+                        )
+                    })}
+
+                    {protectedRoutes.map((route, index) => {
+                        const Page = route.component
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={
+                                    <ProtectedRoute>
+                                        <Page />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        )
+                    })}
+                    {privateRoutes.map((route, index) => {
+                        const Page = route.component
+
+                        let Layout = DefaultLayout
+
+                        if (route.layout) {
+                            Layout = route.layout
+                        } else if (route.layout === null) {
+                            Layout = Fragment
+                        }
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={
+                                    // <PrivateRoute>
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                    // </PrivateRoute>
+                                }
+                            />
+                        )
+                    })}
+                </Routes>
+            </div>
+        </Router>
+    )
 }
 
-export default App;
+export default App

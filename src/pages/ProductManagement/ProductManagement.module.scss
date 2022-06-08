@@ -1,0 +1,37 @@
+.wrapper {
+    background-color: var(--secondary);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: var(--radius-xl);
+}
+
+.image-container {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.col-item {
+    display: flex;
+    align-items: center;
+}
+
+.add-product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.add-icon {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    border-radius: var(--radius-sm);
+    color: var(--secondary);
+    cursor: pointer;
+    margin-right: 10px;
+}

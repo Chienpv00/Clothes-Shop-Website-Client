@@ -1,0 +1,25 @@
+.package-col-info {
+    display: flex;
+    align-items: center;
+}
+
+.confirm-btn {
+    color: #059f56;
+
+    &:hover {
+        color: #059f56;
+    }
+}
+
+.remove-btn {
+    color: #fd475d;
+    &:hover {
+        color: #fd475d;
+    }
+}
+
+.confirm-btn,
+.remove-btn {
+    background-color: transparent;
+    border: 2px solid currentColor;
+}
