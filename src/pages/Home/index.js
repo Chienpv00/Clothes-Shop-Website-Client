@@ -10,11 +10,19 @@ import SlideShow from '~/components/SlideShow'
 import { hotProducts, newImports, newProducts } from '~/data'
 import ProductItem from '~/components/ProductItem'
 
+import { useQuery } from "@apollo/client";
+import {PRODUCTS_FOR_HOME} from '../../config/queryGQLConst/productConstant'
+
+
 const cx = classNames.bind(styles)
 
 function Home() {
+
+    const {data, loading} = useQuery(PRODUCTS_FOR_HOME)
+    if (loading) return <p>loading</p>
     return (
         <Fragment>
+            {console.log(data)}
             <Helmet>
                 <title>Vivo Shop</title>
             </Helmet>
@@ -25,7 +33,7 @@ function Home() {
                 <SlideShow />
                 <Title content={'sản phẩm mới'} rightContent={'Xem thêm...'} />
                 <ProductWrapper flexWrapper>
-                    {newProducts.map((newProduct) => (
+                    {data.getProductsForHome[0].map((newProduct) => (
                         <FlexWrapper key={newProduct.id}>
                             <ProductItem product={newProduct} />
                         </FlexWrapper>
@@ -34,7 +42,7 @@ function Home() {
                 <hr />
                 <Title content={'sản phẩm hot'} rightContent={'Xem thêm...'} />
                 <ProductWrapper flexWrapper>
-                    {hotProducts.map((hotProduct) => (
+                    {data.getProductsForHome[1].map((hotProduct) => (
                         <FlexWrapper key={hotProduct.id}>
                             <ProductItem product={hotProduct} />
                         </FlexWrapper>
@@ -43,7 +51,7 @@ function Home() {
                 <hr />
                 <Title content={'hàng mới về'} rightContent={'Xem thêm...'} />
                 <ProductWrapper flexWrapper>
-                    {newImports.map((newImport) => (
+                    {data.getProductsForHome[2].map((newImport) => (
                         <FlexWrapper key={newImport.id}>
                             <ProductItem product={newImport} />
                         </FlexWrapper>
