@@ -6,17 +6,25 @@ import reportWebVitals from './reportWebVitals'
 import GlobalStyles from '~/components/GlobalStyles'
 import { HelmetProvider } from 'react-helmet-async'
 import AuthContextProvider from '~/context/AuthContext'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+
+const client = new ApolloClient({
+    uri: 'http://localhost:4000/graphql',
+    cache: new InMemoryCache(),
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
-        <HelmetProvider>
-            <AuthContextProvider>
-                <GlobalStyles>
-                    <App />
-                </GlobalStyles>
-            </AuthContextProvider>
-        </HelmetProvider>
+        <ApolloProvider client={client}>
+            <HelmetProvider>
+                <AuthContextProvider>
+                    <GlobalStyles>
+                        <App />
+                    </GlobalStyles>
+                </AuthContextProvider>
+            </HelmetProvider>
+        </ApolloProvider>
     </React.StrictMode>,
 )
 
