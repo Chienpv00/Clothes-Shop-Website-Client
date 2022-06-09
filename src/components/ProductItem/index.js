@@ -12,11 +12,12 @@ import SoldOut from '~/components/SoldOut'
 const cx = classNames.bind(styles)
 
 function ProductItem({ product }) {
+    console.log("🚀 ~ file: index.js ~ line 15 ~ ProductItem ~ product", product)
     return (
         <div className={cx('wrapper')}>
             <Card
-                to={`${config.routes.detailed}?product=${convertLink(product.name)}`}
-                title={product.name}
+                to={`${config.routes.detailed}?id=${product.id}&product=${convertLink(product.title)}`}
+                title={product.title}
                 // onClick={() => console.log(convertLink(product.name))}
                 image={product.thumbnail}
                 imageOpacity={product.soldOut}

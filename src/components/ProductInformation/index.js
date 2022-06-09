@@ -40,14 +40,16 @@ function ProductInformation({ product }) {
                 </FlexWrapper>
                 <FlexWrapper xxl={9} xl={9} lg={9} className={cx('container')}>
                     <div className={cx('header')}>
-                        <h2>{product.name}</h2>
+                        <h2>{product.title}</h2>
                         <h3>{product.price} VND</h3>
                     </div>
                     <div className={cx('content')}>
-                        Áo Thun được thiết kế in hình gấu nâu tạo điểm nhấn. <br />
-                        Chất liệu: Thun Cotton <br />
-                        Form dáng: Croptop & Freesize <br />
-                        Màu sắc: Xám Sản xuất: Việt Nam.
+                        {product.description} <br />
+                        
+                        Chất liệu: <span style={{opacity: '0.8'}}>{product.material}</span> <br />
+                        Form dáng: <span style={{opacity: '0.8'}}>{product.form}</span> <br />
+                        Màu sắc: <span style={{opacity: '0.8'}}>{product.color}</span> <br/>
+                        Sản xuất: <span style={{opacity: '0.8'}}>{product.madeBy}</span>
                     </div>
                     <div className={cx('footer')}>
                         <div className={cx('size')}>
