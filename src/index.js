@@ -6,11 +6,31 @@ import reportWebVitals from './reportWebVitals'
 import GlobalStyles from '~/components/GlobalStyles'
 import { HelmetProvider } from 'react-helmet-async'
 import AuthContextProvider from '~/context/AuthContext'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context';
+import { getTokens } from './utils/manageTokens'
+
+const httpLink = createHttpLink({
+    uri: 'http://localhost:4000/graphql',
+})
+
+const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const tokens = getTokens()
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            refreshToken: tokens.refreshToken,
+            accessToken: tokens.accessToken
+        },
+    }
+})
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/graphql',
+    uri: 'http://localhost:4000/graphql', 
     cache: new InMemoryCache(),
+    link: authLink.concat(httpLink)
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

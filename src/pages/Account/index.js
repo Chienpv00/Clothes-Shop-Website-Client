@@ -4,12 +4,15 @@ import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
 
 import styles from './Account.module.scss'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 import config from '~/config'
 import useAuth from '~/hooks/useAuth'
+import { LOGIN } from '~/config/mutations/auth'
+import { saveTokens } from '~/utils/manageTokens'
 
 const cx = classNames.bind(styles)
 function Account() {
@@ -23,6 +26,10 @@ function Account() {
     const [emailErr, setEmailErr] = useState('')
     const [passwordErr, setPasswordErr] = useState('')
     const [confirmPasswordErr, setConfirmPasswordErr] = useState('')
+    const [loginStatus, setLoginStatus] = useState(false)
+
+    // call api
+    const [callLogin, {data}] = useMutation(LOGIN)    
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -33,12 +40,15 @@ function Account() {
         switch (inp) {
             case 'name':
                 setNameErr('')
+                setLoginStatus(false)
                 break
             case 'email':
                 setEmailErr('')
+                setLoginStatus(false)
                 break
             case 'password':
                 setPasswordErr('')
+                setLoginStatus(false)
                 break
             case 'confirm':
                 setConfirmPasswordErr('')
@@ -79,21 +89,24 @@ function Account() {
     }
 
     // Login or Sign up account
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        
         if (location.pathname === config.routes.login) {
+            
             if (email && password) {
+                console.log("🚀 ~ file: index.js ~ line 87 ~ handleSubmit ~ password", password)
+                console.log("🚀 ~ file: index.js ~ line 87 ~ handleSubmit ~ email", email)
                 setLoading(true)
-                login(email, password)
-                    .then((res) => {
-                        setLoading(false)
-                        if (res) {
-                            handleResetValue()
-                            navigate('/')
-                        }
-                    })
-                    .catch(() => {
-                        setLoading(false)
-                    })
+                const {data} = await callLogin({variables: {email: email, password: password}})
+                console.log("🚀 ~ file: index.js ~ line 97 ~ handleSubmit ~ data", data)
+                if (data && data.login){
+                    handleResetValue()
+                    saveTokens(data.login)
+                    navigate('/')
+                } else{
+                    setLoginStatus(true)
+                }
+                setLoading(false)
             }
         } else if (location.pathname === config.routes.signup) {
             if (name && email && password && confirmPassword) {
@@ -185,6 +198,7 @@ function Account() {
                         <Button primary className={cx('account-btn')} disabled={loading} onClick={handleSubmit}>
                             {location.pathname === config.routes.login ? 'Đăng nhập' : 'Đăng ký'}
                         </Button>
+                        {loginStatus && <div style={{color: 'red', marginTop: '5px'}}>Tài khoản và mật khẩu không đúng, Vui lòng kiểm tra và đăng nhập lại!</div>}
                         <div className={cx('other-login')}>
                             <span className={cx('title-or')}>OR</span>
                             <Button
