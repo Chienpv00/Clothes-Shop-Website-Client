@@ -21,8 +21,8 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            refreshToken: tokens.refreshToken,
-            accessToken: tokens.accessToken
+            refreshToken: tokens?.refreshToken,
+            accessToken: tokens?.accessToken
         },
     }
 })

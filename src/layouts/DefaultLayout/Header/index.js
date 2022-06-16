@@ -12,6 +12,7 @@ import Search from '../../components/Search'
 import { cartItems } from '~/apollo/cartApollo'
 import config from '~/config'
 import { useUser } from '~/utils/utils'
+import {deleteTokens} from '~/utils/manageTokens'
 
 const cx = classNames.bind(styles)
 
@@ -19,6 +20,10 @@ function Header() {
     const navigate = useNavigate()
     const cart = useReactiveVar(cartItems)
     const {user} = useUser()
+
+    const handleLogout = () => { 
+        deleteTokens()
+     }
     return (
         <header className={cx('wrapper')}>
             <Link to={config.routes.home} className={cx('logo')}>
@@ -37,7 +42,12 @@ function Header() {
                         </Button>
                     </div>
                 ) : (
-                    <div>{user.email}</div>
+                    <div>
+                        {user.email} <br/>
+                        <Button onClick={handleLogout} to={config.routes.home} className={cx('custom-btn')}>
+                            Đăng xuất
+                        </Button>
+                    </div>
                 )}
                 <div className={cx('left-container-footer')}>
                     <Search />

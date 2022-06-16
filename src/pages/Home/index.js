@@ -33,7 +33,7 @@ function Home() {
                 <SlideShow />
                 <Title content={'sản phẩm mới'} rightContent={'Xem thêm...'} />
                 <ProductWrapper flexWrapper>
-                    {data.getProductsForHome[0].map((newProduct) => (
+                    {data?.getProductsForHome[0].map((newProduct) => (
                         <FlexWrapper key={newProduct.id}>
                             <ProductItem product={newProduct} />
                         </FlexWrapper>
@@ -42,7 +42,7 @@ function Home() {
                 <hr />
                 <Title content={'sản phẩm hot'} rightContent={'Xem thêm...'} />
                 <ProductWrapper flexWrapper>
-                    {data.getProductsForHome[1].map((hotProduct) => (
+                    {data?.getProductsForHome[1].map((hotProduct) => (
                         <FlexWrapper key={hotProduct.id}>
                             <ProductItem product={hotProduct} />
                         </FlexWrapper>
@@ -51,7 +51,7 @@ function Home() {
                 <hr />
                 <Title content={'hàng mới về'} rightContent={'Xem thêm...'} />
                 <ProductWrapper flexWrapper>
-                    {data.getProductsForHome[2].map((newImport) => (
+                    {data?.getProductsForHome[2].map((newImport) => (
                         <FlexWrapper key={newImport.id}>
                             <ProductItem product={newImport} />
                         </FlexWrapper>
