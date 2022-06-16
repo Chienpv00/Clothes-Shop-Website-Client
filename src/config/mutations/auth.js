@@ -8,3 +8,22 @@ export const LOGIN = gql`
         }
     }
 `
+
+export const SIGN_IN = gql`
+    mutation Mutation($user: CreateCus!) {
+        createCus(user: $user) {
+            code
+            success
+            message
+            user {
+                id
+                fullName
+                email
+                image
+                enable
+                verificationCode
+                role
+            }
+        }
+    }
+`
