@@ -27,8 +27,6 @@ function Account() {
     const [emailErr, setEmailErr] = useState('')
     const [passwordErr, setPasswordErr] = useState('')
     const [confirmPasswordErr, setConfirmPasswordErr] = useState('')
-    const [loginStatus, setLoginStatus] = useState(false)
-    const [signUpLog, setSignUpLog] = useState(false)
 
     // call api
     const [callLogin, { data }] = useMutation(LOGIN)
@@ -43,15 +41,12 @@ function Account() {
         switch (inp) {
             case 'name':
                 setNameErr('')
-                setLoginStatus(false)
                 break
             case 'email':
                 setEmailErr('')
-                setLoginStatus(false)
                 break
             case 'password':
                 setPasswordErr('')
-                setLoginStatus(false)
                 break
             case 'confirm':
                 setConfirmPasswordErr('')
@@ -101,8 +96,9 @@ function Account() {
                     handleResetValue()
                     saveTokens(data.login)
                     navigate('/')
+                    
                 } else {
-                    setLoginStatus(true)
+                    toast.error('Tài khoản hoặc mật khẩu không đúng 🤷‍♀️!')
                 }
                 setLoading(false)
             }
@@ -201,16 +197,6 @@ function Account() {
                         <Button primary className={cx('account-btn')} disabled={loading} onClick={handleSubmit}>
                             {location.pathname === config.routes.login ? 'Đăng nhập' : 'Đăng ký'}
                         </Button>
-                        {loginStatus && (
-                            <div style={{ color: 'red', marginTop: '5px' }}>
-                                Tài khoản và mật khẩu không đúng, Vui lòng kiểm tra và đăng nhập lại!
-                            </div>
-                        )}
-                        {signUpLog && (
-                            <div style={{ color: 'red', marginTop: '5px' }}>
-                                Email của bạn đã bị trùng, vui lòng nhập email khác!
-                            </div>
-                        )}
                         <div className={cx('other-login')}>
                             <span className={cx('title-or')}>OR</span>
                             <Button
