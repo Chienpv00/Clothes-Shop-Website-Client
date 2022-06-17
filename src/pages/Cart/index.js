@@ -48,7 +48,9 @@ function Cart() {
                             <FlexWrapper className={cx('item', 'price')} xxl={3} xl={3} lg={3}>
                                 <span>Giá</span>
                             </FlexWrapper>
-                            <FlexWrapper className={cx('item')} xxl={2} xl={2} lg={2} />
+                            <FlexWrapper className={cx('item')} xxl={2} xl={2} lg={2}>
+                                <span />
+                            </FlexWrapper>
                         </Wrapper>
                         {cart.map((item) => (
                             <Wrapper key={item.product.id} flexWrapper className={cx('row')}>
@@ -103,7 +105,9 @@ function Cart() {
                             </Wrapper>
                         ))}
                         <Wrapper flexWrapper>
-                            <FlexWrapper xxl={5} xl={5} lg={5} />
+                            <FlexWrapper xxl={5} xl={5} lg={5}>
+                                <span />
+                            </FlexWrapper>
                             <FlexWrapper className={cx('footer', 'quantity')} xxl={2} xl={2} lg={2}>
                                 <h3>Tổng cộng: </h3>
                             </FlexWrapper>

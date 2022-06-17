@@ -23,7 +23,9 @@
         border: 1px solid var(--primary);
         border-radius: var(--radius-sm);
         cursor: pointer;
-        display: inline-block;
+        display: block;
+        position: relative;
+        overflow: hidden;
     }
 
     .disabled-size {
@@ -35,7 +37,30 @@
         display: none;
 
         &:checked ~ label {
-            background-color: var(--secondary);
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+            }
+
+            &::before {
+                width: 25px;
+                height: 25px;
+                right: -12px;
+                top: -12px;
+                transform: rotate(45deg);
+                background-color: var(--primary);
+            }
+
+            &::after {
+                width: 12px;
+                height: 4px;
+                right: -4px;
+                top: -3px;
+                transform: rotate(-45deg);
+                border-left: 2px solid var(--darkwhite);
+                border-bottom: 2px solid var(--darkwhite);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ const navItems = [
     {
         name: 'ÁO',
         categories: [
-            { id: 'somi', name: 'Sơ mi', path: `${config.routes.productTop}?type=ao-so-mi` },
+            { id: 'somi', name: 'Sơ mi', path: `${config.routes.productTop}?type=ao-somi` },
             { id: 'aokieu', name: 'Áo kiểu', path: `${config.routes.productTop}?type=ao-kieu` },
             { id: 'thun', name: 'Áo thun', path: `${config.routes.productTop}?type=ao-thun` },
         ],
@@ -23,7 +23,7 @@ const navItems = [
     {
         name: 'QUẦN',
         categories: [
-            { id: 'somi', name: 'Quần jean', path: `${config.routes.productBottom}?type=quan-jean` },
+            { id: 'somi', name: 'Quần jean', path: `${config.routes.productBottom}?type=jean` },
             { id: 'quankieu', name: 'Quần kiểu', path: `${config.routes.productBottom}?type=quan-kieu` },
         ],
     },
