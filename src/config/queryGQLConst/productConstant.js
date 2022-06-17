@@ -37,4 +37,13 @@ const PRODUCT_FOR_DETAIL = gql`
     }
 `
 
-export { PRODUCTS_FOR_HOME, PRODUCT_FOR_DETAIL }
+const GET_CAT_CONSTANT = gql`
+    query Query {
+        getCatsSchema {
+            id
+            name
+        }
+    }
+`
+
+export { PRODUCTS_FOR_HOME, PRODUCT_FOR_DETAIL, GET_CAT_CONSTANT }

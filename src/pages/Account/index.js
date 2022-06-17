@@ -11,9 +11,9 @@ import Input from '~/components/Input'
 import Button from '~/components/Button'
 import config from '~/config'
 import useAuth from '~/hooks/useAuth'
-import { LOGIN, SIGN_IN } from '~/config/mutations/auth'
 import { saveTokens } from '~/utils/manageTokens'
 import { toast } from 'react-toastify'
+import api from '~/config/api'
 
 const cx = classNames.bind(styles)
 function Account() {
@@ -29,8 +29,8 @@ function Account() {
     const [confirmPasswordErr, setConfirmPasswordErr] = useState('')
 
     // call api
-    const [callLogin, { data }] = useMutation(LOGIN)
-    const [callSignIn] = useMutation(SIGN_IN)
+    const [callLogin, { data }] = useMutation(api.mutations.auth.LOGIN)
+    const [callSignIn] = useMutation(api.mutations.auth.SIGN_IN)
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -96,7 +96,6 @@ function Account() {
                     handleResetValue()
                     saveTokens(data.login)
                     navigate('/')
-                    
                 } else {
                     toast.error('Tài khoản hoặc mật khẩu không đúng 🤷‍♀️!')
                 }
