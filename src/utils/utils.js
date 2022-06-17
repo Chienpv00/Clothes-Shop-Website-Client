@@ -25,8 +25,8 @@ export function useCategories() {
     const [categories, setCategories] = useState()
     const { loading, error } = useQuery(GET_CAT_CONSTANT, {
         
+        fetchPolicy: 'no-cache',
         onCompleted: (data) => {
-            fetchPolicy: 'no-cache',
             setCategories(data.getCatsSchema)
         },
     })
