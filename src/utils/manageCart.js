@@ -1,14 +1,14 @@
 // module for saving tokens to local storage
-const CARD_KEY = "cards";
+const CART_KEY = "shopping_cart";
 // tokens = { accessToken: "xyz", refreshToken: "abc" }
-export function saveCards(cards) {
-  localStorage.setItem(CARD_KEY, JSON.stringify(cards));
+export function saveCarts(carts) {
+  localStorage.setItem(CART_KEY, JSON.stringify(carts));
 }
 
-export function getCards() {
-  return JSON.parse(localStorage.getItem(CARD_KEY));
+export function getCarts() {
+  return JSON.parse(localStorage.getItem(CART_KEY));
 }
 
-export function deleteCards() {
-  localStorage.removeItem(CARD_KEY);
+export function deleteCarts() {
+  localStorage.removeItem(CART_KEY);
 }

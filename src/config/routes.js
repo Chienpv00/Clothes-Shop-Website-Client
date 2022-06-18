@@ -15,6 +15,7 @@ const routes = {
     productManagement: '/admin/product-management',
     packageManagement: '/admin/package-management',
     postManagement: '/admin/post-management',
+    payment: '/payment'
 }
 
 export default routes

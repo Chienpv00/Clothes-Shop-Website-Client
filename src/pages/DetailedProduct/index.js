@@ -16,7 +16,6 @@ const cx = classNames.bind(styles)
 
 function DetailedProduct() {
     let [params] = useSearchParams()
-    console.log('🚀 ~ file: index.js ~ line 17 ~ test1 ~ id', typeof params.get('id'))
     const { data, loading } = useQuery(PRODUCT_FOR_DETAIL, { variables: { getProductId: parseInt(params.get('id')) } })
     return (
         <div className={cx('wrapper')}>
