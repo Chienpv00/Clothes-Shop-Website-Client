@@ -10,19 +10,16 @@ import SlideShow from '~/components/SlideShow'
 import { hotProducts, newImports, newProducts } from '~/data'
 import ProductItem from '~/components/ProductItem'
 
-import { useQuery } from "@apollo/client";
-import {PRODUCTS_FOR_HOME} from '../../config/queryGQLConst/productConstant'
-
+import { useQuery } from '@apollo/client'
+import { PRODUCTS_FOR_HOME } from '../../config/queryGQLConst/productConstant'
 
 const cx = classNames.bind(styles)
 
 function Home() {
-
-    const {data, loading} = useQuery(PRODUCTS_FOR_HOME)
+    const { data, loading } = useQuery(PRODUCTS_FOR_HOME)
     if (loading) return <p>loading</p>
     return (
         <Fragment>
-            {console.log(data)}
             <Helmet>
                 <title>Vivo Shop</title>
             </Helmet>
