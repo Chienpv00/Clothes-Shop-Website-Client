@@ -6,18 +6,23 @@ import api from '~/config/api'
 export function useUser() {
     const [user, setUser] = useState()
 
-    const { loading, error } = useQuery(api.queries.user.GET_USER, {
+    const { loading, error, refetch } = useQuery(api.queries.user.GET_USER, {
         fetchPolicy: 'no-cache',
         onCompleted: (data) => {
             setUser(data.getUser)
         },
     })
 
+    const refetchUser = () => { 
+        refetch()
+     }
+
     return {
         user,
         setUser,
         loading,
         error,
+        refetchUser
     }
 }
 

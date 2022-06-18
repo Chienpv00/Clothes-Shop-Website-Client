@@ -13,19 +13,20 @@ import config from '~/config'
 import { useUser } from '~/utils/utils'
 import { deleteTokens } from '~/utils/manageTokens'
 import api from '~/config/api'
+import { Avatar, Tooltip, Zoom } from '@mui/material'
 
 const cx = classNames.bind(styles)
 
 function Header() {
     const navigate = useNavigate()
-    const { user } = useUser()
+    const { user, refetchUser } = useUser()
     const { data, refetch } = useQuery(api.queries.user.GET_CART_LENGTH, { fetchPolicy: 'no-cache' })
 
     const handleLogout = () => {
         deleteTokens()
+        refetchUser();
     }
 
-    
     return (
         <header className={cx('wrapper')}>
             <Link to={config.routes.home} className={cx('logo')}>
@@ -44,8 +45,14 @@ function Header() {
                         </Button>
                     </div>
                 ) : (
-                    <div>
-                        {user.email} <br />
+                    <div className={cx('info')} >
+                        <Tooltip TransitionComponent={Zoom} sx={{ fontSize: '20px !important' }} title={user.email}>
+                            <Avatar
+                                alt={user.fullName}
+                                src={user.thumbnail || ''}
+                                sx={{ width: '60px', height: '60px' }}
+                            />
+                        </Tooltip>
                         <Button onClick={handleLogout} to={config.routes.home} className={cx('custom-btn')}>
                             Đăng xuất
                         </Button>
