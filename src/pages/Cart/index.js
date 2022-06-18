@@ -173,7 +173,7 @@ function Cart() {
                         ) : (
                             <div className={cx('no-item')}>
                                 <h2>Bạn chưa có sản phẩm nào trong giỏ hàng!</h2>
-                                <Button primary to={`${config.routes.productTop}?type=ao-so-mi`}>
+                                <Button primary to={`${config.routes.productTop}?type=dam`}>
                                     Mua hàng ngay
                                 </Button>
                             </div>
