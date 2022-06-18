@@ -4,7 +4,8 @@ const data = JSON.parse(localStorage.getItem('shopping_cart'))
 export const cartItems = data ? makeVar([...data]) : makeVar([])
 
 const findProdInCart = (cart, product) => {
-    const id = product._id
+    const id = product.id
+    console.log("🚀 ~ file: cartApollo.js ~ line 8 ~ findProdInCart ~ id", id)
     for (let index in cart) {
         if (cart[index].product._id === id) return index
     }
@@ -39,3 +40,11 @@ export const removeFromCart = (product) => {
     cartItems([...cloneArr])
     localStorage.setItem('shopping_cart', JSON.stringify(cartItems()))
 }
+
+export const setCart = (productArr) =>{
+    cartItems(productArr)
+}
+
+export const dropCart = () => { 
+    cartItems([])
+ }
