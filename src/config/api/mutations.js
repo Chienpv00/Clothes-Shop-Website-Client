@@ -2,7 +2,71 @@ import { gql } from '@apollo/client'
 
 export const product = {}
 
-export const user = {}
+export const user = {
+    ADD_TO_CART: gql`
+        mutation Mutation($prodId: Int!, $quantity: Int) {
+            addToCart(prodId: $prodId, quantity: $quantity) {
+                code
+                success
+                message
+                cart {
+                    id
+                    userId
+                    product {
+                        id
+                        title
+                        price
+                        thumbnail
+                        category
+                        description
+                        type
+                        material
+                        form
+                        color
+                        madeBy
+                        sizes {
+                            name
+                            soldOut
+                        }
+                        soldOut
+                        commentId {
+                            id
+                            user {
+                                id
+                                email
+                                password
+                                fullName
+                                phone
+                                image
+                                enable
+                                verificationCode
+                                role
+                                prodBoughtId
+                            }
+                            content
+                            star
+                            reply {
+                                id
+                                content
+                                star
+                            }
+                        }
+                    }
+                    quantity
+                }
+            }
+        }
+    `,
+    REMOVE_CARD: gql`
+        mutation Mutation($prodId: Int) {
+            removeCart(prodId: $prodId) {
+                code
+                success
+                message
+            }
+        }
+    `,
+}
 
 export const auth = {
     LOGIN: gql`

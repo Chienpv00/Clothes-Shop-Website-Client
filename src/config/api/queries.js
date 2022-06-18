@@ -16,4 +16,43 @@ export const product = {
     `,
 }
 
-export const user = {}
+export const user = {
+    GET_USER: gql`
+        query GetUser {
+            getUser {
+                fullName
+                phone
+                image
+                email
+                enable
+                prodBoughtId
+            }
+        }
+    `,
+    GET_CART: gql`
+        query Query {
+            getCart {
+                id
+                userId
+                product {
+                    id
+                    title
+                    thumbnail
+                    category
+                    sizes {
+                        name
+                        soldOut
+                    }
+                    soldOut
+                    price
+                }
+                quantity
+            }
+        }
+    `,
+    GET_CART_LENGTH: gql`
+        query Query {
+            getCartLength
+        }
+    `,
+}

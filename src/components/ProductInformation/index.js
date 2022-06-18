@@ -9,21 +9,33 @@ import Button from '~/components/Button'
 import { addToCart } from '~/apollo/cartApollo'
 import { FlexWrapper, Wrapper } from '~/components/Popper'
 import SoldOut from '~/components/SoldOut'
+import { useUser } from '~/utils/utils'
+import api from '~/config/api'
+import { useMutation } from '@apollo/client'
 
 const cx = classNames.bind(styles)
 
 function ProductInformation({ product }) {
     const [sizeSelected, setSizeSelected] = useState('')
+    const { user } = useUser()
+    const [callAddToCart] = useMutation(api.mutations.user.ADD_TO_CART)
 
     const handleSelectSize = (value, isSoldOut) => {
         if (!isSoldOut) setSizeSelected(sizeSelected === value ? '' : value)
     }
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
+        console.log(user)
+        if (!user) {
+            toast.info('Bạn phải đăng nhập trước! 👌')
+            return
+        }
         if (sizeSelected) {
-            addToCart(product, 1)
-            setSizeSelected('')
-            toast.success('Đã thêm vào giỏ hàng!')
+            await callAddToCart({ variables: { prodId: parseInt(product.id) } , onCompleted: () => { 
+                setSizeSelected('')
+                toast.success('Đã thêm vào giỏ hàng!')
+             }})
+            // addToCart(product, 1)
         } else {
             toast.warning('Vui lòng chọn size!')
         }
@@ -45,11 +57,10 @@ function ProductInformation({ product }) {
                     </div>
                     <div className={cx('content')}>
                         {product.description} <br />
-                        
-                        Chất liệu: <span style={{opacity: '0.8'}}>{product.material}</span> <br />
-                        Form dáng: <span style={{opacity: '0.8'}}>{product.form}</span> <br />
-                        Màu sắc: <span style={{opacity: '0.8'}}>{product.color}</span> <br/>
-                        Sản xuất: <span style={{opacity: '0.8'}}>{product.madeBy}</span>
+                        Chất liệu: <span style={{ opacity: '0.8' }}>{product.material}</span> <br />
+                        Form dáng: <span style={{ opacity: '0.8' }}>{product.form}</span> <br />
+                        Màu sắc: <span style={{ opacity: '0.8' }}>{product.color}</span> <br />
+                        Sản xuất: <span style={{ opacity: '0.8' }}>{product.madeBy}</span>
                     </div>
                     <div className={cx('footer')}>
                         <div className={cx('size')}>
