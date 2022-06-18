@@ -14,6 +14,7 @@ import useAuth from '~/hooks/useAuth'
 import { saveTokens } from '~/utils/manageTokens'
 import { toast } from 'react-toastify'
 import api from '~/config/api'
+import { useUser } from '~/utils/utils'
 
 const cx = classNames.bind(styles)
 function Account() {
@@ -27,6 +28,8 @@ function Account() {
     const [emailErr, setEmailErr] = useState('')
     const [passwordErr, setPasswordErr] = useState('')
     const [confirmPasswordErr, setConfirmPasswordErr] = useState('')
+
+    const {refetchUser} = useUser()
 
     // call api
     const [callLogin, { data }] = useMutation(api.mutations.auth.LOGIN)
@@ -108,6 +111,8 @@ function Account() {
                     variables: { user: { fullName: name, email: email, password: password } },
                     onCompleted: (value) => {
                         setLoading(false)
+                        toast.success('Đăng nhập thành công! 🤷‍♂️')
+                        refetchUser()
                     },
                 })
 

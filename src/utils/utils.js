@@ -5,24 +5,24 @@ import api from '~/config/api'
 
 export function useUser() {
     const [user, setUser] = useState()
-
+    
     const { loading, error, refetch } = useQuery(api.queries.user.GET_USER, {
-        fetchPolicy: 'no-cache',
+        fetchPolicy: 'network-only',
         onCompleted: (data) => {
             setUser(data.getUser)
         },
     })
-
-    const refetchUser = () => { 
+    
+    const refetchUser = () => {
         refetch()
-     }
+    }
 
     return {
         user,
         setUser,
         loading,
         error,
-        refetchUser
+        refetchUser,
     }
 }
 
@@ -35,4 +35,20 @@ export function useCategories() {
         },
     })
     return { categories, setCategories, loading, error }
+}
+
+export function useCartNumber() {
+    const [cartNumber, setCartNumber] = useState()
+    const { loading, error, refetch } = useQuery(api.queries.user.GET_CART_LENGTH, {
+        fetchPolicy: 'no-cache',    
+        onCompleted: (data) => {
+            setCartNumber(data.getCartLength)
+        },
+    })
+
+    const refetchCartNumber = () => { 
+        refetch()
+     }
+
+    return { cartNumber, loading, error, refetchCartNumber }
 }

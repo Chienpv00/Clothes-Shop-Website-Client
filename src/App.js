@@ -8,8 +8,10 @@ import { DefaultLayout } from '~/layouts'
 import ScrollTopTop from '~/components/ScrollToTop'
 import ProtectedRoute from '~/context/ProtectedRoute'
 import PrivateRoute from '~/context/PrivateRoute'
+import { useUser } from './utils/utils'
 
 function App() {
+    const { user } = useUser()
     return (
         <Router>
             <div className="App">
@@ -57,7 +59,7 @@ function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <ProtectedRoute>
+                                    <ProtectedRoute role={user?.role}>
                                         <Page />
                                     </ProtectedRoute>
                                 }
@@ -79,11 +81,11 @@ function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    // <PrivateRoute>
-                                    <Layout>
-                                        <Page />
-                                    </Layout>
-                                    // </PrivateRoute>
+                                    <PrivateRoute role={user?.role}>
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    </PrivateRoute>
                                 }
                             />
                         )

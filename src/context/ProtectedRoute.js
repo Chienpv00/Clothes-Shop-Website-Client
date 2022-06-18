@@ -5,12 +5,13 @@ import { Navigate, useLocation } from 'react-router-dom'
 
 import config from '~/config'
 import useAuth from '~/hooks/useAuth'
+import { useUser } from '~/utils/utils'
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children, role }) {
+    console.log("🚀 ~ file: ProtectedRoute.js ~ line 11 ~ ProtectedRoute ~ role", role)
     const location = useLocation()
-    const { user } = useAuth()
 
-    return !user.email ? children : <Navigate to={config.routes.home} replace state={{ from: location }} />
+    return !role ? children : <Navigate to={config.routes.home} replace state={{ from: location }} />
 }
 
 ProtectedRoute.propTypes = {

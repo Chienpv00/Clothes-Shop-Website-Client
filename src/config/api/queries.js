@@ -26,6 +26,7 @@ export const user = {
                 email
                 enable
                 prodBoughtId
+                role
             }
         }
     `,

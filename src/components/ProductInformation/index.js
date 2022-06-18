@@ -6,10 +6,9 @@ import PropTypes from 'prop-types'
 import styles from './ProductInformation.module.scss'
 import Image from '~/components/Image'
 import Button from '~/components/Button'
-import { addToCart } from '~/apollo/cartApollo'
 import { FlexWrapper, Wrapper } from '~/components/Popper'
 import SoldOut from '~/components/SoldOut'
-import { useUser } from '~/utils/utils'
+import { useCartNumber, useUser } from '~/utils/utils'
 import api from '~/config/api'
 import { useMutation } from '@apollo/client'
 
@@ -19,22 +18,26 @@ function ProductInformation({ product }) {
     const [sizeSelected, setSizeSelected] = useState('')
     const { user } = useUser()
     const [callAddToCart] = useMutation(api.mutations.user.ADD_TO_CART)
+    const { refetchCartNumber } = useCartNumber()
 
     const handleSelectSize = (value, isSoldOut) => {
         if (!isSoldOut) setSizeSelected(sizeSelected === value ? '' : value)
     }
 
     const handleAddToCart = async () => {
-        console.log(user)
         if (!user) {
             toast.info('Bạn phải đăng nhập trước! 👌')
             return
         }
         if (sizeSelected) {
-            await callAddToCart({ variables: { prodId: parseInt(product.id) } , onCompleted: () => { 
-                setSizeSelected('')
-                toast.success('Đã thêm vào giỏ hàng!')
-             }})
+            await callAddToCart({
+                variables: { prodId: parseInt(product.id) },
+                onCompleted: () => {
+                    setSizeSelected('')
+                    toast.success('Đã thêm vào giỏ hàng!')
+                },
+            })
+            refetchCartNumber()
             // addToCart(product, 1)
         } else {
             toast.warning('Vui lòng chọn size!')
