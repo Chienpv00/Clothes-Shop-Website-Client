@@ -56,4 +56,20 @@ export const user = {
             getCartLength
         }
     `,
+    GET_ALL_USERS: gql`
+        query Query {
+            getAllUsers {
+                id
+                email
+                password
+                fullName
+                phone
+                image
+                enable
+                verificationCode
+                role
+                prodBoughtId
+            }
+        }
+    `,
 }

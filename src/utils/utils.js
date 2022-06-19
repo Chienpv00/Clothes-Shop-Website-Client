@@ -40,7 +40,7 @@ export function useCategories() {
 export function useCartNumber() {
     const [cartNumber, setCartNumber] = useState()
     const { loading, error, refetch } = useQuery(api.queries.user.GET_CART_LENGTH, {
-        fetchPolicy: 'no-cache',    
+        fetchPolicy: 'network-only',    
         onCompleted: (data) => {
             setCartNumber(data.getCartLength)
         },
