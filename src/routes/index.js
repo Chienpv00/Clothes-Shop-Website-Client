@@ -1,4 +1,4 @@
-import { DefaultLayout, TipLayout } from '~/layouts'
+import { DefaultLayout, TipLayout, PaymentLayout } from '~/layouts'
 import AdminLayout from '~/layouts/AdminLayout'
 import config from '~/config'
 
@@ -28,7 +28,7 @@ const publicRoutes = [
     { path: config.routes.productBottomGirl, component: Product },
     { path: config.routes.returnPolicy, component: ReturnPolicy },
     { path: config.routes.tip, component: Tip, layout: TipLayout },
-    {path: config.routes.payment, component: Payment}
+    {path: config.routes.payment, component: Payment, layout: PaymentLayout}
 ]
 
 const protectedRoutes = [

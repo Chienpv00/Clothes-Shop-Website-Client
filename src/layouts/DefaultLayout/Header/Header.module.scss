@@ -57,6 +57,11 @@
     }
 }
 
+.info {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .quantity-product {
     position: absolute;
     top: 13px;

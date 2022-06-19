@@ -96,3 +96,15 @@ export const auth = {
         }
     `,
 }
+
+export const order = {
+    ADD_NEW_ORDER: gql`
+        mutation AddOrder($address: String!, $method: Int!, $total: Int!, $prodIdArr: [Int]) {
+            addOrder(address: $address, method: $method, total: $total, prodIdArr: $prodIdArr) {
+                code
+                success
+                message
+            }
+        }
+    `,
+}

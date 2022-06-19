@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, createContext } from 'react'
 import classNames from 'classnames/bind'
 import { Helmet } from 'react-helmet-async'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,6 +17,8 @@ import config from '~/config'
 import api from '~/config/api'
 import { useUser } from '~/utils/utils'
 import LoadingSpinner from '~/components/Loading'
+import { Alert, Checkbox, FormControl, Snackbar } from '@mui/material'
+import { saveCarts } from '~/utils/manageCart'
 
 const cx = classNames.bind(styles)
 
@@ -24,18 +26,13 @@ function Cart() {
     const { user } = useUser()
     const [total, setTotal] = useState(0)
     const [onChange, setOnChange] = useState(false)
+    const [cartSelected, setCartSelected] = useState([])
+    const [open, setOpen] = useState(true)
     const { data, loading, refetch } = useQuery(api.queries.user.GET_CART, {
         fetchPolicy: 'no-cache',
-        onCompleted: (value) => {
-            let temp = 0
-            value.getCart.map((item) => {
-                temp += item.product[0].price * item.quantity
-            })
-            setTotal(temp)
-        },
     })
-    
 
+    console.log('🚀 ~ file: index.js ~ line 29 ~ Cart ~ cartSelected', cartSelected)
     const [callAddToCart] = useMutation(api.mutations.user.ADD_TO_CART)
     const [callRemoveCart] = useMutation(api.mutations.user.REMOVE_CARD)
 
@@ -59,14 +56,37 @@ function Cart() {
         setOnChange(false)
     }
 
-    // neu user dang nhap thi se update localstorage shopping_cart
-    // if (user) {
-    //     callGetCart({
-    //         onCompleted: (data) => {
-    //             cart = data.getCart
-    //         },
-    //     })
-    // }
+    const handleChange = (event, item) => {
+        console.log('🚀 ~ file: index.js ~ line 60 ~ handleChange ~ item', item)
+        if (event.target.checked === true) {
+            if (cartSelected.length === 0) {
+                setCartSelected([item.product])
+                setTotal(item.product[0].price)
+            } else {
+                setCartSelected((prev) => [...prev, item.product])
+                setTotal((prev) => prev + item.product[0].price)
+            }
+        } else {
+            const temp = cartSelected.filter((value) => {
+                return value.id !== item.product[0].id
+            })
+            setCartSelected(temp)
+            setTotal((prev) => prev - item.product[0].price)
+        }
+    }
+
+    const handlePayment = () => {
+        
+        saveCarts({cart: cartSelected, total: total})
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        setOpen(false)
+    }
 
     return (
         <Fragment>
@@ -79,10 +99,21 @@ function Cart() {
                     <LoadingSpinner />
                 ) : (
                     <div>
+                        <Snackbar
+                            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                        >
+                            <Alert onClose={handleClose} severity="info" sx={{ width: '100%', fontSize: '18px' }}>
+                                Bạn có thể chọn hàng trong giỏ và thanh toán! 🐧
+                            </Alert>
+                        </Snackbar>
                         {data?.getCart.length > 0 ? (
                             <div className={cx('container')}>
                                 <Wrapper className={cx('row')} flexWrapper>
-                                    <FlexWrapper className={cx('item')} xxl={5} xl={5} lg={5}>
+                                    <FlexWrapper className={cx('item')} xxl={1} xl={1} lg={1}></FlexWrapper>
+                                    <FlexWrapper className={cx('item')} xxl={4} xl={4} lg={4}>
                                         <span>Sản Phẩm</span>
                                     </FlexWrapper>
 
@@ -98,7 +129,19 @@ function Cart() {
                                 </Wrapper>
                                 {data.getCart.map((item) => (
                                     <Wrapper key={item.id} flexWrapper className={cx('row')}>
-                                        <FlexWrapper className={cx('item')} xxl={5} xl={5} lg={5}>
+                                        <FlexWrapper className={cx('item')} xxl={1} xl={1} lg={1}>
+                                            <Checkbox
+                                                onChange={(event) => {
+                                                    handleChange(event, item)
+                                                }}
+                                                size="140"
+                                                className={cx('check-box')}
+                                                color="success"
+                                                disabled={item.product[0].soldOut}
+                                            />
+                                        </FlexWrapper>
+
+                                        <FlexWrapper className={cx('item')} xxl={4} xl={4} lg={4}>
                                             <div className={cx('product')}>
                                                 <div className={cx('image')}>
                                                     <Image
@@ -164,7 +207,13 @@ function Cart() {
                                         <span>{formatMoney(total)} VND</span>
                                     </FlexWrapper>
                                     <FlexWrapper className={cx('footer')} xxl={2} xl={2} lg={2}>
-                                        <Button to={'/payment'} primary className={cx('payment-btn')}>
+                                        <Button
+                                            disabled={!cartSelected.length}
+                                            to={cartSelected.length ? '/payment' : ''}
+                                            primary
+                                            className={cx('payment-btn')}
+                                            onClick={handlePayment}
+                                        >
                                             Thanh Toán
                                         </Button>
                                     </FlexWrapper>

@@ -1,3 +1,146 @@
 .payment-header{
     font-size: 50px;
 }
+
+.pick{
+    font-size: 1.6rem;
+    margin-top: 20px;
+
+    .form-group{
+        display: flex;
+    }
+
+    .form-input{
+        flex: 1
+    }
+
+    .form-label{
+        width: 250px;
+    }
+
+    .form-select{
+        border: none;
+        outline: none;
+        padding: 12px;
+        padding-left: 0px;
+
+        option{
+            padding: 15px;
+        }
+    }
+
+    .err{
+        text-align: center;
+        color: red;
+    }
+
+    .btn {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .textarea{
+        font-size: 1.6rem;
+        border-color: #916264;
+        border-radius: 5px;
+        outline: none;
+        width: 100%;
+        padding: 15px;
+        background-color: #ffe7e7;
+        color: #916264;
+    }
+}
+
+.container {
+    font-size: 2rem;
+}
+
+.row {
+    padding: 0;
+}
+
+.item {
+    // background-color: antiquewhite;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: calc(100% - 20px);
+        border: 0.5px solid var(--primary);
+        background-color: var(--primary);
+        left: 10px;
+        bottom: 0;
+        padding: 0;
+    }
+}
+
+.header {
+    font-weight: 600;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+}
+
+.image {
+    width: 70px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.quantity {
+    justify-content: center;
+}
+
+.quantity-inp {
+    width: 100%;
+    text-align: center;
+}
+
+.change-quantity-btn {
+    padding: 15px 6px;
+    outline: none;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.6rem;
+}
+
+.price {
+    justify-content: flex-end;
+}
+
+.remove-btn,
+.payment-btn {
+    margin: auto;
+}
+
+.remove-btn {
+    background-color: #fd475d;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+}
+
+.no-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 100px;
+}
+
+.check-box{
+    font-weight: bold;
+    font-size: 2rem;
+}
