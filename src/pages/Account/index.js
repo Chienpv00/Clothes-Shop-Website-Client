@@ -201,23 +201,7 @@ function Account() {
                         <Button primary className={cx('account-btn')} disabled={loading} onClick={handleSubmit}>
                             {location.pathname === config.routes.login ? 'Đăng nhập' : 'Đăng ký'}
                         </Button>
-                        <div className={cx('other-login')}>
-                            <span className={cx('title-or')}>OR</span>
-                            <Button
-                                primary
-                                className={cx('account-btn', 'facebook')}
-                                leftIcon={<FontAwesomeIcon icon={faFacebook} />}
-                            >
-                                Tiếp tục với Facebook
-                            </Button>
-                            <Button
-                                primary
-                                className={cx('account-btn', 'google')}
-                                leftIcon={<FontAwesomeIcon icon={faGoogle} />}
-                            >
-                                Tiếp tục với Google
-                            </Button>
-                        </div>
+                    
                         {location.pathname === config.routes.login && (
                             <Button text className={cx('account-btn', 'account-txt-btn')}>
                                 Quên mật khẩu?
