@@ -144,3 +144,27 @@
     font-weight: bold;
     font-size: 2rem;
 }
+
+.delivery-info{
+    .title {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .info-block {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+
+        .info-block__item {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+    }
+}
+
+.form-container{}
+
+
