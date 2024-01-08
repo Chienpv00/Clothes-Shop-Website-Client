@@ -1,4 +1,4 @@
-import { DefaultLayout, TipLayout, PaymentLayout } from '~/layouts'
+import { DefaultLayout, TipLayout, PaymentLayout, OrderLayout } from '~/layouts'
 import AdminLayout from '~/layouts/AdminLayout'
 import config from '~/config'
 
@@ -16,6 +16,7 @@ import ProductManagement from '~/pages/ProductManagement'
 import PackageManagement from '~/pages/PackageManagement'
 import PostManagement from '~/pages/PostManagement'
 import Payment from '~/pages/Payment'
+import { Orders } from '~/pages/Orders'
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -28,7 +29,8 @@ const publicRoutes = [
     { path: config.routes.productBottomGirl, component: Product },
     { path: config.routes.returnPolicy, component: ReturnPolicy },
     { path: config.routes.tip, component: Tip, layout: TipLayout },
-    {path: config.routes.payment, component: Payment, layout: PaymentLayout}
+    {path: config.routes.payment, component: Payment, layout: PaymentLayout},
+    {path: config.routes.orders, component: Orders, layout: OrderLayout}
 ]
 
 const protectedRoutes = [

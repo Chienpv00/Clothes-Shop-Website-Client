@@ -22,7 +22,6 @@ const headerTable = [
 const fakeUsers = [
     { id: 1, name: 'Đào Đại Dương', role: 'Admin', email: 'daodaiduong2000@gmail.com', phone: '084 634 6869' },
     { id: 2, name: 'Phạm Viết Chiến', role: 'User', email: 'phamvietchien2000@gmail.com', phone: '012 345 6789' },
-    { id: 3, name: 'Phạm Minh Nhi', role: 'User', email: 'daodaiduong2000@gmail.com', phone: '098 765 4321' },
 ]
 
 function UserManagenment() {

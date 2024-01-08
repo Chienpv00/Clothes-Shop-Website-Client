@@ -15,10 +15,10 @@ function Header() {
     return (
         <div className={cx('wrapper')}>
             <Button
-                to={config.routes.orders}
+                to={config.routes.payment}
                 leftIcon={<FontAwesomeIcon icon={faCartShopping} className={cx('header-link')} />}
             >
-                VỀ TRANG HÓA ĐƠN
+                VỀ TRANG THANH TOÁN
             </Button>
             <Button to={config.routes.home} leftIcon={<FontAwesomeIcon icon={faHome} className={cx('header-link ')} />}>
                 VỀ TRANG CHỦ

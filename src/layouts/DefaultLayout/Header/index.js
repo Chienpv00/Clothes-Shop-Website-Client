@@ -14,6 +14,8 @@ import { deleteTokens } from '~/utils/manageTokens'
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem, Tooltip, Zoom } from '@mui/material'
 import { toast } from 'react-toastify'
 import { Logout, AdminPanelSettings, Settings } from '@mui/icons-material'
+import routes from '~/config/routes'
+import { Badge } from 'antd'
 
 const cx = classNames.bind(styles)
 
@@ -46,6 +48,15 @@ function Header() {
                 </Link>
 
                 <div className={cx('left-container')}>
+                    <div className={cx('left-container-footer')}>
+                        <Search />
+
+                        <button onClick={() => navigate(config.routes.payment)}>
+                            <FontAwesomeIcon icon={faCartShopping} />
+                            <span className={cx('quantity-product')}>{cartNumber > 99 ? '99+' : cartNumber}</span>
+                        </button>
+                    </div>
+
                     {!user ? (
                         <div className={cx('left-container-header')}>
                             <Button to={config.routes.login} className={cx('custom-btn')}>
@@ -58,10 +69,7 @@ function Header() {
                         </div>
                     ) : (
                         <div className={cx('info')}>
-                            <Tooltip
-                                TransitionComponent={Zoom}
-                                sx={{ fontSize: '20px !important' }}
-                            >
+                            <Tooltip TransitionComponent={Zoom} sx={{ fontSize: '20px !important' }}>
                                 <Avatar
                                     onClick={handleClick}
                                     alt={user.fullName}
@@ -71,14 +79,6 @@ function Header() {
                             </Tooltip>
                         </div>
                     )}
-                    <div className={cx('left-container-footer')}>
-                        <Search />
-
-                        <button onClick={() => navigate(config.routes.cart)}>
-                            <FontAwesomeIcon icon={faCartShopping} />
-                            <span className={cx('quantity-product')}>{cartNumber > 99 ? '99+' : cartNumber}</span>
-                        </button>
-                    </div>
                 </div>
             </header>
             <Menu
@@ -116,11 +116,19 @@ function Header() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose} sx={{ fontSize: 14 }}>
-                    <Avatar /> Thông tin tài khoản
-                </MenuItem>
+                <Badge.Ribbon className='pe-none' text="soon">
+                    <MenuItem onClick={handleClose} sx={{ fontSize: 14 }}>
+                        <Avatar /> Thông tin tài khoản
+                    </MenuItem>
+                </Badge.Ribbon>
                 <Divider />
-                <MenuItem onClick={handleClose} sx={{ fontSize: 14 }}>
+                <MenuItem
+                    onClick={() => {
+                        handleClose()
+                        navigate(routes.orders)
+                    }}
+                    sx={{ fontSize: 14 }}
+                >
                     <ListItemIcon>
                         <Settings fontSize="medium" />
                     </ListItemIcon>
@@ -133,14 +141,20 @@ function Header() {
                     Đăng xuất
                 </MenuItem>
                 {user?.role === 'ADMIN' ? (
-                    <>
-                        <MenuItem to={config.routes.userManagement} sx={{ fontSize: 14 }}>
+                    <MenuItem
+                        onClick={() => {
+                            handleClose()
+                            navigate(routes.userManagement)
+                        }}
+                        sx={{ fontSize: 14 }}
+                    >
+                        <div>
                             <ListItemIcon>
                                 <AdminPanelSettings fontSize="medium" />
                             </ListItemIcon>
                             Trang web quản trị
-                        </MenuItem>
-                    </>
+                        </div>
+                    </MenuItem>
                 ) : (
                     ''
                 )}

@@ -24,9 +24,6 @@ function Home() {
                 <title>Vivo Shop</title>
             </Helmet>
             <div className={cx('wrapper')}>
-                <img className={cx('img-home', 'img-bell')} src={images.bell} alt="bell" />
-                <img className={cx('img-home', 'img-christmas')} src={images.christmas} alt="christmas" />
-                <img className={cx('img-home', 'img-tree')} src={images.tree} alt="tree" />
                 <SlideShow />
                 <Title content={'sản phẩm mới'} rightContent={'Xem thêm...'} />
                 <ProductWrapper flexWrapper>

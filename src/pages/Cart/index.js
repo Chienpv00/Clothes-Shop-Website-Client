@@ -76,7 +76,6 @@ function Cart() {
     }
 
     const handlePayment = () => {
-        
         saveCarts({cart: cartSelected, total: total})
     }
 

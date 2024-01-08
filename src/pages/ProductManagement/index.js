@@ -36,7 +36,7 @@ const fakeProducts = [
 
 function ProductManagement() {
     //When having APIs, remove it
-    const [products, setProducts] = useState([...fakeProducts])
+    const [products, setProducts] = useState([...fakeProducts]);
 
     const handleRemoveProduct = (productId) => {
         const cloneArr = products.filter((product) => product.id !== productId)

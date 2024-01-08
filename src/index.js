@@ -11,6 +11,7 @@ import { setContext } from '@apollo/client/link/context'
 import { getTokens } from './utils/manageTokens'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { TransactionProvider } from './context/TransactionContext'
 
 const theme = createTheme({
     typography: {
@@ -45,17 +46,19 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
-        <ApolloProvider client={client}>
-            <HelmetProvider>
-                <AuthContextProvider>
-                    <GlobalStyles>
-                        <ThemeProvider theme={theme}>
-                            <App />
-                        </ThemeProvider>
-                    </GlobalStyles>
-                </AuthContextProvider>
-            </HelmetProvider>
-        </ApolloProvider>
+        <TransactionProvider>
+            <ApolloProvider client={client}>
+                <HelmetProvider>
+                    <AuthContextProvider>
+                        <GlobalStyles>
+                            <ThemeProvider theme={theme}>
+                                <App />
+                            </ThemeProvider>
+                        </GlobalStyles>
+                    </AuthContextProvider>
+                </HelmetProvider>
+            </ApolloProvider>
+        </TransactionProvider>
     </React.StrictMode>,
 )
 

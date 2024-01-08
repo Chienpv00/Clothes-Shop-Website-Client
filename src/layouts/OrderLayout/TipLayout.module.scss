@@ -1,0 +1,18 @@
+.wrapper {
+    width: 100%;
+    max-width: var(--default-layout-max-width);
+    padding: var(--default-layout-padding);
+    padding-right: 0;
+    margin: auto;
+}
+
+.content {
+    background-color: var(--lightpink);
+    border-radius: var(--radius-xl);
+}
+
+.side-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 15px;
+}

@@ -34,7 +34,6 @@ const supports = [
 const members = [
     { id: 1, name: 'đào đại dương' },
     { id: 2, name: 'phạm viết chiến' },
-    { id: 3, name: 'phạm minh nhi' },
 ]
 
 function About() {
