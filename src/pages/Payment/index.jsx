@@ -55,12 +55,19 @@ export default function Payment() {
 
     const { setTransactionForm, sendTransaction } = React.useContext(TransactionContext)
 
+    // order status
+    // 'pending': chờ xác nhận
+    // 'confirmed': đã xác nhận
+    // 'cancelled': đã hủy
+
     const [formData, setFormData] = React.useState({
         fullName: '',
         phoneNumber: '',
         deliveryAddress: '',
         paymentMethod: 1,
         items: [],
+        userId: user?.email,
+        orderStatus: 'pending'
     })
 
     const handleChangeForm = (e, name) => {
@@ -115,7 +122,7 @@ export default function Payment() {
     const countTotal = () => {
         let total = 0
         formData.items.forEach((item) => {
-            total += item.product[0].price * (item.product[0].quantity || 1)
+            total += item.product[0].price * (item.quantity || 1)
         })
         return formatMoney(total) + ' đ'
     }
@@ -142,7 +149,7 @@ export default function Payment() {
 
     React.useEffect(() => {
         if (user) {
-            setFormData((prevState) => ({ ...prevState, fullName: user?.fullName, phoneNumber: user?.phone }))
+            setFormData((prevState) => ({ ...prevState, fullName: user?.fullName, phoneNumber: user?.phone, userId: user?.email }))
         }
     }, [user])
 
@@ -233,6 +240,7 @@ export default function Payment() {
                                         type="submit"
                                         variant="outlined"
                                         sx={{ fontSize: '16px', color: 'inherit', borderColor: 'inherit' }}
+                                        disabled={!formData.items?.length}
                                     >
                                         Thanh toán
                                     </Button>

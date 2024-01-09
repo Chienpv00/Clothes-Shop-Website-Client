@@ -91,6 +91,8 @@ export const TransactionProvider = ({ children }) => {
                     paymentMethod: transaction.paymentMethod,
                     phoneNumber: transaction.phoneNumber,
                     items: JSON.parse(transaction.items),
+                    userId: transaction.userId,
+                    orderStatus: transaction.orderStatus,
                 }))
 
                 console.log('structuredTransactions', structuredTransactions)
@@ -109,7 +111,7 @@ export const TransactionProvider = ({ children }) => {
             if (!ethereum) return alert('Please install MetaMask.')
 
             // get data from form
-            const { fullName, phoneNumber, deliveryAddress, paymentMethod, items } = transactionForm
+            const { fullName, phoneNumber, deliveryAddress, paymentMethod, items, userId, orderStatus } = transactionForm;
             const transactionsContract = createEthereumContract()
 
             await ethereum.request({
@@ -130,6 +132,8 @@ export const TransactionProvider = ({ children }) => {
                 deliveryAddress,
                 paymentMethod,
                 items,
+                userId,
+                orderStatus
             )
 
             setLoading(true)

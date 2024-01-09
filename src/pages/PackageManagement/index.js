@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import classNames from 'classnames/bind'
 
 import styles from './PackageManagement.module.scss'
@@ -6,11 +6,12 @@ import { FlexWrapper, Wrapper } from '~/components/Popper'
 import Button from '~/components/Button'
 import HeaderTable from '~/components/HeaderTable'
 import NoItem from '~/components/NoItem'
+import { TransactionContext } from '~/context/TransactionContext'
 
 const cx = classNames.bind(styles)
 
 const headerTable = [
-    { column: 1, width: 2, title: 'Mã đơn hàng' },
+    { column: 1, width: 2, title: 'Ngày đặt hàng' },
     { column: 2, width: 3, title: 'Người nhận hàng' },
     { column: 3, width: 2, title: 'Đơn hàng' },
     { column: 4, width: 2, title: 'Tổng tiền' },
@@ -40,11 +41,38 @@ const fakePackages = [
 ]
 
 function PackageManagement() {
+    const { transactions } = useContext(TransactionContext)
+
+    const formatDate = (date) => {
+        const dateStr = date.toString().split(' ')[0]
+        const dateArr = dateStr.split('/')
+        const newDateStr = `${dateArr[1]}/${dateArr[0]}/${dateArr[2]}`
+        const newDate = new Date(newDateStr)
+        return newDate.toLocaleDateString()
+    }
+
+    const buildItems = (items)=>{
+        const item = items.map((item)=>{
+            return `${item.product[0].title} x${item.quantity}`
+        })
+
+        return item.join(', ')
+    }
+
+    const countTotalPrice = (items) => {
+        let totalPrice = 0
+        items.forEach((item) => {
+            totalPrice += item.quantity * item.product[0].price
+        })
+        return totalPrice + ' đ'
+    }
+
     return (
         <div className={cx('wrapper')}>
-            {fakePackages.length > 0 && <HeaderTable tHeader={headerTable} />}
-            {fakePackages.map((fakePackage) => (
-                <Fragment key={fakePackage.id}>
+            {console.log('package', transactions)}
+            {transactions.length > 0 && <HeaderTable tHeader={headerTable} />}
+            {transactions.map((transaction, index) => (
+                <Fragment key={index}>
                     <Wrapper flexWrapper>
                         <FlexWrapper
                             className={cx('package-col-info')}
@@ -53,7 +81,7 @@ function PackageManagement() {
                             lg={headerTable[0].width}
                             md={headerTable[0].width}
                         >
-                            {fakePackage.id}
+                            {formatDate(transaction.timestamp)}
                         </FlexWrapper>
                         <FlexWrapper
                             className={cx('package-col-info')}
@@ -62,7 +90,7 @@ function PackageManagement() {
                             lg={headerTable[1].width}
                             md={headerTable[1].width}
                         >
-                            {fakePackage.userInfo}
+                            {transaction.fullName + (transaction.deliveryAddress && ' ' + transaction.deliveryAddress)}
                         </FlexWrapper>
                         <FlexWrapper
                             className={cx('package-col-info')}
@@ -71,7 +99,7 @@ function PackageManagement() {
                             lg={headerTable[2].width}
                             md={headerTable[2].width}
                         >
-                            {fakePackage.packageInfo}
+                            {buildItems(transaction.items)}
                         </FlexWrapper>
                         <FlexWrapper
                             className={cx('package-col-info')}
@@ -80,7 +108,7 @@ function PackageManagement() {
                             lg={headerTable[3].width}
                             md={headerTable[3].width}
                         >
-                            {fakePackage.totalPrice}
+                            {countTotalPrice(transaction.items)}
                         </FlexWrapper>
                         <FlexWrapper
                             className={cx('package-col-info')}
@@ -93,7 +121,7 @@ function PackageManagement() {
                                 Xác nhận
                             </Button>
                             <Button primary className={cx('remove-btn')}>
-                                Xóa
+                                Từ chối
                             </Button>
                         </FlexWrapper>
                     </Wrapper>

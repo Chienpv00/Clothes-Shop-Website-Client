@@ -7,7 +7,7 @@ import { Button } from 'antd'
 const cx = classNames.bind(styles)
 
 export function Orders() {
-    const { transactions } = useContext(TransactionContext);
+    const { transactions } = useContext(TransactionContext)
 
     console.log(transactions)
 
@@ -32,11 +32,45 @@ export function Orders() {
                 {transactions.length ? (
                     transactions.map((order) => {
                         return (
-                            <div key={order.timestamp} className="order__body__item border rounded p-3 shadow mb-5"> 
+                            <div key={order.timestamp} className="order__body__item border rounded p-3 shadow mb-5">
                                 <div className="order__body__item__header mb-3 d-flex justify-content-between">
                                     <div className="order__body__item__header__date">{formatDate(order.timestamp)}</div>
                                     <div className="order__body__item__header__status">
-                                        <Button type="primary" shape="round">Đã xác nhận</Button>
+                                        {order.orderStatus ? (
+                                            order.orderStatus === 'pending' ? (
+                                                <Button
+                                                    type="primary"
+                                                    shape="round"
+                                                    className="order__body__item__header__status__btn"
+                                                >
+                                                    Đang chờ xử lý
+                                                </Button>
+                                            ) : order.orderStatus === 'confirmed' ? (
+                                                <Button
+                                                    type="primary"
+                                                    shape="round"
+                                                    className="order__body__item__header__status__btn"
+                                                >
+                                                    Đã xác nhận
+                                                </Button>
+                                            ) : (
+                                                <Button
+                                                    danger
+                                                    shape="round"
+                                                    className="order__body__item__header__status__btn"
+                                                >
+                                                    Đã hủy
+                                                </Button>
+                                            )
+                                        ) : (
+                                            <Button
+                                                type="primary"
+                                                shape="round"
+                                                className="order__body__item__header__status__btn"
+                                            >
+                                                Đã xác nhận
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
 
@@ -45,8 +79,11 @@ export function Orders() {
                                         const item = product.product[0]
 
                                         return (
-                                            <div key={product.id} className="order__body__item__body__item d-flex gap-4 border-bottom mb-3" >
-                                                <div style={{width: '70px'}}>
+                                            <div
+                                                key={product.id}
+                                                className="order__body__item__body__item d-flex gap-4 border-bottom mb-3"
+                                            >
+                                                <div style={{ width: '70px' }}>
                                                     <Image cla src={item.thumbnail} ratio="ratio3x4" alt={item.title} />
                                                 </div>
                                                 <div className="order__body__item__body__item__info">
